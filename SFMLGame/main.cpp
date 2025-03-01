@@ -2,25 +2,35 @@
 #include <iostream>
 int main()
 {
-	sf::RenderWindow window(sf::VideoMode(1024, 768), "SFML works!");
-	sf::Font font;
-	if (!font.loadFromFile("../resources/font/arial.ttf")) {
-		std::cout << "Font Loading Error!" << std::endl;
-	}
-	sf::CircleShape shape(100.f);
-	shape.setFillColor(sf::Color::Green);
-	sf::Text text;
-	text.setFont(font);
-	text.setString("Hello SFML!");
-	text.setCharacterSize(24);
-	text.setFillColor(sf::Color::White); while (window.isOpen())
+	int windowWidth = 400;
+	int windowHeight = 800;
+	sf::RenderWindow window(sf::VideoMode(windowWidth, windowHeight), "Apocalypse");
+
+	float rectWidth = 20.0f;
+	float rectHeight = 10.0f;
+	float rectPositionX = 10.0f;
+	float rectPositionY = 50.0f;
+
+	sf::RectangleShape shape({ rectWidth, rectHeight });
+	shape.setFillColor(sf::Color::Red);
+
+
+	while (window.isOpen())
 	{
 		sf::Event event;
 		while (window.pollEvent(event))
 		{
 			if (event.type == sf::Event::Closed) window.close();
 		}
+		rectPositionX += 0.25f;
+		if (rectPositionX > windowWidth)
+		{
+			rectPositionX = 0;
+		}
+		shape.setPosition({ rectPositionX, rectPositionY });
+
 		window.clear();
-		window.draw(shape); window.draw(text); window.display();
+		window.draw(shape); 
+		window.display();
 	}
 }
